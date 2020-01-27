@@ -1,0 +1,16 @@
+version: '3'
+services:
+  spring_service:
+    container_name: spring_service
+    build:
+      context: .
+      dockerfile: containers/spring/Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      public_net:
+networks:
+  public_net:
+    driver: bridge
+    ipam:
+      driver: default

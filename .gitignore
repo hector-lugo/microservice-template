@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Environment
+.env
+
+# Development
+docker-compose.override.yml
