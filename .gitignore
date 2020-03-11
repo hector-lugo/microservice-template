@@ -35,3 +35,8 @@ build/
 
 # Development
 docker-compose.override.yml
+
+# IaC metadata
+iac/.terraform
+iac/terraform.tfstate*
+iac/keys
