@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "demo-service",
+    "Essential": true,
+    "Image": "httpd",
+    "Memory": 256,
+    "PortMappings": [
+      {
+        "ContainerPort": 80,
+        "HostPort": 80
+      }
+    ],
+    "LogConfiguration": {
+      "LogDriver": "awslogs",
+      "Options": {
+        "awslogs-group": "${cloudwatch_logs_group}",
+        "awslogs-region": "${aws_region}"
+      }
+    }
+  }
+]

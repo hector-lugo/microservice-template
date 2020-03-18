@@ -40,3 +40,6 @@ docker-compose.override.yml
 iac/.terraform
 iac/terraform.tfstate*
 iac/keys
+
+# Lambda packages
+iac/**/lambda_code/*.zip
