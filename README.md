@@ -1,16 +1,16 @@
+## WORK IN PROGRESS
+
 ### Building the image
 `docker build -t spring-demo .`
 
 ### Running the container 
 `docker run -it -p 8080:8080 --name demo spring-demo`
 
-### Sample insert person API
-POST http://localhost:8080/api/v1/person
+### Testing the API
+POST http://localhost:8080/api/v1/ping
 
 ```
-{
-  "name": "Tester"
-}
+Pong
 ```
 
 ### Stop and remove container
