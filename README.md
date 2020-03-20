@@ -1,6 +1,6 @@
 ## WORK IN PROGRESS
 
-# Infrastructure as code with Terraform
+## Infrastructure as code with Terraform
 
 ## Running Spring app
 
