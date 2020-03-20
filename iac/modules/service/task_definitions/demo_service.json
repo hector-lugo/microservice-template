@@ -2,12 +2,12 @@
   {
     "Name": "demo-service",
     "Essential": true,
-    "Image": "httpd",
+    "Image": "${ecs_image}",
     "Memory": 256,
     "PortMappings": [
       {
-        "ContainerPort": 80,
-        "HostPort": 80
+        "ContainerPort": 8080,
+        "HostPort": 8080
       }
     ],
     "LogConfiguration": {

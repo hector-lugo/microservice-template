@@ -47,7 +47,7 @@ try {
         ]]) {
           ansiColor('xterm') {
             sh 'terraform init'
-            sh 'terraform plan'
+            sh 'terraform plan -var ecs_image=${IMAGE}'
 
             if (env.BRANCH_NAME == 'master') {
               sh 'terraform apply -auto-approve'

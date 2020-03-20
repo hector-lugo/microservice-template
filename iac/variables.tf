@@ -5,3 +5,9 @@ variable "deployment_type" {
   type        = string
   default     = "ecs"
 }
+
+variable "ecs_image" {
+  description = "The image to be used for the cluster"
+  type        = string
+  default     = "httpd"
+}

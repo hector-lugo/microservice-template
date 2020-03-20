@@ -6,6 +6,12 @@ variable "prefix" {
   default     = "xpresso"
 }
 
+variable "ecs_image" {
+  description = "The image to be used for service's task definition"
+  type        = string
+  default     = "httpd"
+}
+
 variable "vpc_id" {
   description = "Id of the VPC we should be createing the load balancers in"
   type = string

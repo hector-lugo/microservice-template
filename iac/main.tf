@@ -37,4 +37,5 @@ module "service" {
   load_balancer = module.load_balancers.load_balancer_arn
   load_balancer_target_group_arn = module.load_balancers.load_balancer_target_group_arn
   vpc_id = module.vpc.vpc_id
+  ecs_image = var.ecs_image
 }

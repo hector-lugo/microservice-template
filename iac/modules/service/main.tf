@@ -21,6 +21,7 @@ data "template_file" "demo_service_task_definition" {
   vars = {
     cloudwatch_logs_group = aws_cloudwatch_log_group.log_group.name
     aws_region = data.aws_region.current.id
+    ecs_image = var.ecs_image
   }
 }
 
