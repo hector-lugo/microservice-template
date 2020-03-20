@@ -36,9 +36,6 @@ build/
 # Development
 docker-compose.override.yml
 
-# Terraform connection file for local development
-iac/connection.tf
-
 # IaC metadata
 iac/.terraform
 iac/terraform.tfstate*
