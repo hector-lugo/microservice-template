@@ -6,8 +6,8 @@
     "Memory": 256,
     "PortMappings": [
       {
-        "ContainerPort": 8080,
-        "HostPort": 8080
+        "ContainerPort": 80,
+        "HostPort": 80
       }
     ],
     "LogConfiguration": {

@@ -3,7 +3,8 @@ String CREDENTIALS_ID = 'awsCredentials'
 String VERSION = 'latest'
 String PROJECT = 'xpresso-microservice'
 String IMAGE = 'xpresso-microservice:latest'
-String ECR_URL = env.ECR_URL
+String PROJECT_URI = env.ECR_URI + '/' +  PROJECT
+String ECR_URL = 'http://' + PROJECT_URI
 String ECR_CRED = 'ecr:us-east-1:' + CREDENTIALS_ID
 
 try {
@@ -47,10 +48,10 @@ try {
         ]]) {
           ansiColor('xterm') {
             sh 'terraform init'
-            sh 'terraform plan -var ecs_image=${IMAGE}'
+            sh 'terraform plan -var ecs_image=' + PROJECT_URI
 
             if (env.BRANCH_NAME == 'master') {
-              sh 'terraform apply -auto-approve'
+              sh 'terraform apply -auto-approve -var ecs_image=' + PROJECT_URI
               sh 'terraform show'
             }
           }
