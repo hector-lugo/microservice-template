@@ -1,5 +1,7 @@
 ## WORK IN PROGRESS
 
+## Running Spring app
+
 ### Building the image
 `docker build -t spring-demo .`
 
