@@ -1,5 +1,7 @@
 ## WORK IN PROGRESS
 
+# Infrastructure as code with Terraform
+
 ## Running Spring app
 
 ### Building the image
