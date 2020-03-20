@@ -1,11 +1,9 @@
-data "aws_region" "current" {}
-
 # Terraform state will be stored in S3
 terraform {
   backend "s3" {
-    bucket = var.tf_state_bucket
-    key    = var.tf_state_object
-    region = data.aws_region.current.id
+    bucket = "xpresso-terraform"
+    key    = "microservice_template/terraform.tfstate"
+    region = "us-east-1"
   }
 }
 
