@@ -29,7 +29,6 @@ module "ecs_cluster" {
   subnets_ids = module.vpc.private_subnets
   instance_type = "t2.micro"
   cluster_sg = module.security_groups.ecs_host_sg
-  enabled = var.deployment_type == "ecs" ? true : false
 }
 
 module "service" {
@@ -38,5 +37,4 @@ module "service" {
   load_balancer = module.load_balancers.load_balancer_arn
   load_balancer_target_group_arn = module.load_balancers.load_balancer_target_group_arn
   vpc_id = module.vpc.vpc_id
-  enabled = var.deployment_type == "ecs" ? true : false
 }
