@@ -15,6 +15,6 @@ public class HealthController {
 
     @GetMapping
     public String demo() {
-        return "status:success";
+        return "status:ok";
     }
 }

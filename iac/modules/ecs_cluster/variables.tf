@@ -19,7 +19,7 @@ variable "subnets_ids" {
 variable "cluster_size" {
   description = "How many ECS hosts should be deployed"
   type = number
-  default = 1
+  default = 2
 }
 
 variable "instance_type" {

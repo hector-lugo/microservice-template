@@ -3,6 +3,9 @@ resource "aws_ecs_service" "ecs_service" {
   cluster = var.esc_cluster
   iam_role = aws_iam_role.service_role.name
   desired_count = var.desired_count
+  deployment_minimum_healthy_percent = 50
+  deployment_maximum_percent = 100
+
   task_definition = aws_ecs_task_definition.ecs_service_task_definition.arn
 
   load_balancer {

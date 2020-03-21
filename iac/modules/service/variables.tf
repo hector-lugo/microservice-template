@@ -25,7 +25,7 @@ variable "esc_cluster" {
 variable "desired_count" {
   description = "How many instances of this task should we run across our cluster"
   type = number
-  default = 1
+  default = 2
 }
 
 variable "load_balancer" {
