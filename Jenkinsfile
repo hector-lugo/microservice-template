@@ -5,6 +5,7 @@ String PROJECT = 'xpresso-microservice'
 String IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
 String ECR_URL = 'http://' + env.ECR_URI + '/' + PROJECT
 String ECR_CRED = 'ecr:us-east-1:' + CREDENTIALS_ID
+Boolean REQUEST_APPROVAL = env.REQUEST_APPROVAL == '0' ? false : true
 
 try {
   stage('prepare') {
@@ -50,7 +51,10 @@ try {
             sh 'terraform plan -var ecs_image=' + IMAGE
 
             if (env.BRANCH_NAME == 'master') {
-              input "Deploy?"
+              if (REQUEST_APPROVAL) {
+                input "Deploy?"
+              }
+
               milestone()
               sh 'terraform apply -auto-approve -var ecs_image=' + IMAGE
               sh 'terraform show'
