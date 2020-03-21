@@ -2,9 +2,8 @@
 String CREDENTIALS_ID = 'awsCredentials'
 String VERSION = 'latest'
 String PROJECT = 'xpresso-microservice'
-String IMAGE = 'xpresso-microservice:latest'
-String PROJECT_URI = env.ECR_URI + '/' +  PROJECT
-String ECR_URL = 'http://' + PROJECT_URI
+String IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
+String ECR_URL = 'http://' + env.ECR_URI + '/' + PROJECT
 String ECR_CRED = 'ecr:us-east-1:' + CREDENTIALS_ID
 
 try {
@@ -21,14 +20,14 @@ try {
        VERSION = shortCommitHash
 
        // set the build display name
-       IMAGE = "$PROJECT:$VERSION"
+       IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
     }
   }
 
   // Build docker images
   stage('Docker') {
     node {
-        def appImage = docker.build("${IMAGE}", "-f ./containers/spring/Dockerfile .")
+        def appImage = docker.build(IMAGE, "-f ./containers/spring/Dockerfile .")
 
         docker.withRegistry(ECR_URL, ECR_CRED) {
           docker.image(IMAGE).push()
@@ -48,10 +47,12 @@ try {
         ]]) {
           ansiColor('xterm') {
             sh 'terraform init'
-            sh 'terraform plan -var ecs_image=' + PROJECT_URI
+            sh 'terraform plan -var ecs_image=' + IMAGE
 
             if (env.BRANCH_NAME == 'master') {
-              sh 'terraform apply -auto-approve -var ecs_image=' + PROJECT_URI
+              input "Deploy?"
+              milestone()
+              sh 'terraform apply -auto-approve -var ecs_image=' + IMAGE
               sh 'terraform show'
             }
           }
