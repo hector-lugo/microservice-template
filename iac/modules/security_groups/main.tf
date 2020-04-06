@@ -66,3 +66,34 @@ resource "aws_security_group" "load_balancer_sg" {
     var.tags
   )
 }
+
+resource "aws_security_group" "database_sg" {
+  name   = format("%s_database_security_group", var.prefix)
+  description = "Access to the database from the microservice"
+
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port = 3306
+    protocol = "tcp"
+    to_port = 3306
+    security_groups = [aws_security_group.ecs_host_sg.id]
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
+  }
+
+  tags = merge(
+  {
+    "Name" = format("%s_database_sg", var.prefix)
+  },
+  var.tags
+  )
+}

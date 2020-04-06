@@ -75,7 +75,7 @@ data "aws_ami" "amazon_linux_ecs" {
 }
 
 resource "aws_launch_configuration" "cluster_launch_config" {
-  name = format("%s_launch_config", var.prefix)
+  name_prefix = format("%s_launch_config_", var.prefix)
 
   image_id = data.aws_ami.amazon_linux_ecs.id
   instance_type = var.instance_type

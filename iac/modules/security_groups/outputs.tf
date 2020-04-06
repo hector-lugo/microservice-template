@@ -7,3 +7,8 @@ output "load_balance_sg" {
   description = "A reference to the security group for load balancers"
   value = aws_security_group.load_balancer_sg.id
 }
+
+output "database_sg" {
+  description = "A reference to the security group for database"
+  value = aws_security_group.database_sg.id
+}
