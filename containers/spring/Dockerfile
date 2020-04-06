@@ -6,7 +6,7 @@ RUN apk add maven
 
 COPY . /app
 
-RUN cd /app && mvn clean package
+RUN cd /app && mvn clean package -DskipTests
 
 FROM openjdk:15-alpine
 

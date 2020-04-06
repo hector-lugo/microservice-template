@@ -1,0 +1,10 @@
+[template]
+src = "application.properties.conf.tmpl"
+dest = ./src/main/resources/application.properties
+keys = [
+    "/microservices_template/database/name",
+    "/microservices_template/database/user",
+    "/microservices_template/database/password",
+    "/microservices_template/database/host",
+    "/microservices_template/database/port",
+]
