@@ -14,25 +14,28 @@ try {
       checkout scm
 
       // calculate GIT lastest commit short-hash
-       gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-       shortCommitHash = gitCommitHash.take(7)
+      gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+      shortCommitHash = gitCommitHash.take(7)
 
-       // calculate a sample version tag
-       VERSION = shortCommitHash
+      // calculate a sample version tag
+      VERSION = shortCommitHash
 
-       // set the build display name
-       IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
+      // set the build display name
+      IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
+
+      // Generate application properties
+      sh 'confd -confdir ./confd -onetime -backed file -file ./confd/backend.yaml'
     }
   }
 
   // Build docker images
   stage('Docker') {
     node {
-        def appImage = docker.build(IMAGE, "-f ./containers/spring/Dockerfile .")
+      def appImage = docker.build(IMAGE, "-f ./containers/spring/Dockerfile .")
 
-        docker.withRegistry(ECR_URL, ECR_CRED) {
-          docker.image(IMAGE).push()
-        }
+      docker.withRegistry(ECR_URL, ECR_CRED) {
+        docker.image(IMAGE).push()
+      }
     }
   }
 

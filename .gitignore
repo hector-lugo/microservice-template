@@ -43,3 +43,6 @@ iac/keys
 
 # Lambda packages
 iac/**/lambda_code/*.zip
+
+# Ignore hardcoded application properties
+src/main/resources/application.properties

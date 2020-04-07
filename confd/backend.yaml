@@ -1,0 +1,7 @@
+microservices_template:
+  database:
+    name: microservices
+    user: root
+    password: root
+    host: mysql
+    port: 3306
