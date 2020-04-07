@@ -24,7 +24,9 @@ try {
       IMAGE = env.ECR_URI + '/' + PROJECT + ':' + VERSION
 
       // Generate application properties
-      sh 'confd -confdir ./confd -onetime -backed file -file ./confd/backend.yaml'
+      withEnv(["AWS_REGION=us-east-1"]) {
+        sh '/opt/confd/bin/confd -confdir ./confd -onetime -backend ssm'
+      }
     }
   }
 

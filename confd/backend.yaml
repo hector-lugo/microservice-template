@@ -1,7 +1,7 @@
 microservices_template:
   database:
     name: microservices
-    user: root
+    username: root
     password: root
     host: mysql
     port: 3306

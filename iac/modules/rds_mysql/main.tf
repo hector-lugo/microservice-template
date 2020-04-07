@@ -30,3 +30,15 @@ resource "aws_db_instance" "database_instance" {
   vpc_security_group_ids      = [var.database_sg]
   final_snapshot_identifier = format("%s-database-backup", var.prefix)
 }
+
+resource "aws_ssm_parameter" "database_address" {
+  name = format("/%s/database/host", var.prefix)
+  type = "String"
+  value = aws_db_instance.database_instance.address
+}
+
+resource "aws_ssm_parameter" "database_port" {
+  name = format("/%s/database/port", var.prefix)
+  type = "String"
+  value = aws_db_instance.database_instance.port
+}

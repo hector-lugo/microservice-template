@@ -1,10 +1,10 @@
-server.port={{getv "/microservices_template/database/port"}}
-spring.datasource.url=jdbc:mysql://{{getv "/microservices_template/database/host"}}:{{getv "/microservices_template/database/port"}}/{{getv "/microservices_template/database/name"}}
-spring.datasource.username={{getv "/microservices_template/database/user"}}
-spring.datasource.password={{getv "/microservices_template/database/password"}}
+server.port=80
+spring.datasource.url=jdbc:mysql://{{getv "/xpresso/database/host"}}:{{getv "/xpresso/database/port"}}/{{getv "/xpresso/database/name"}}
+spring.datasource.username={{getv "/xpresso/database/username"}}
+spring.datasource.password={{getv "/xpresso/database/password"}}
 
-flyway.user={{getv "/microservices_template/database/user"}}
-flyway.password={{getv "/microservices_template/database/password"}}
-flyway.schemas={{getv "/microservices_template/database/name"}}
-flyway.url=jdbc:mysql://{{getv "/microservices_template/database/host"}}:{{getv "/microservices_template/database/port"}}/{{getv "/microservices_template/database/name"}}
+flyway.user={{getv "/xpresso/database/username"}}
+flyway.password={{getv "/xpresso/database/password"}}
+flyway.schemas={{getv "/xpresso/database/name"}}
+flyway.url=jdbc:mysql://{{getv "/xpresso/database/host"}}:{{getv "/xpresso/database/port"}}/{{getv "/xpresso/database/name"}}
 flyway.locations=filesystem:db/migration
