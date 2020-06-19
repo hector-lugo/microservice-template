@@ -12,13 +12,33 @@ This repository provides a template for a Spring Boot microservice. By using thi
 - An ECR repository. If you need to use a different registry for your Docker images, just update the Jenkinsfile and inject the correct image into the Terraform deployment
 - An S3 bucket to store the state file for the Terraform deployment
     - Please note that you will need to update the `iac/connection.tf` file with the correct location of the S3 bucket
-- A Jenkins node running Terraform 0.12+ and with the following plugins installed
-    - Docker
-    - ECR
-    - (Github)
+- A jenkins node with the following installed:
+    - [Terraform 0.12+](https://www.terraform.io/downloads.html)
+    - [Confd](https://github.com/kelseyhightower/confd)
+    - [Docker](https://docs.docker.com/engine/install/)
+        - Ensure that Jenkins have access to the Docker daemon: `sudo gpasswd -a jenkins docker` You will then need to restart Docker and Jenkins:
+            ```
+            sudo service docker restart -y
+            sudo service jenkins restart -y    
+            ```
+- A Jenkins node with the following plugins installed
+    - CloudBees AWS Credentials Plugin
+    - Pipeline: AWS Steps
+    - Docker Pipeline
+    - Amazon ECR plugin
+    - AnsiColor
+    - GitHub plugin, optionally if you will be building from Github
+- By default this project will use SSM Parameter Store as the main source of configurations. You will need to add the required configurations to SSM prepended by the project name. By default the keys will look like:
+    - /xpresso/database/name
+    - /xpresso/database/username
+    - /xpresso/database/password
+    - /xpresso/database/host
+    - /xpresso/database/port
+- Register your AWS Credentials with using 'awsCredentials' as the identifier
+- Add your ECR repository URL as an environment variable named 'ECR_URI'
 
 ## Infrastructure as code with Terraform
-The Terraform code provides a the basic infrastructure to run a highly available and fault tolerant microservice. The code separates the different components in modules as follows:
+The Terraform code provides a basic infrastructure to run a highly available and fault tolerant microservice. The code separates the different components in modules as follows:
 - *vpc* Provides the infrastructure required for virtual network isolation. By default it will create a VPC with 2 public subnets and the required routes to an Internet Gateway (also created as part of the deployment) and 2 private subnets, each with a NAT Gateway association and with the route tables required to route the traffic accordingly
 - *load_balancers* Provides an Application Load Balancer with a Target Group, configured to listen on port 80
 - *security_groups* Provides the required Security Groups to control traffic directed to the Application Load Balancer as well as the traffic directed to the instances in associated with the ECS cluster
@@ -59,7 +79,7 @@ $ docker-machine ip
 192.168.99.101
 ```
 
-The navigate to: `http://192.168.99.101/api/v1/ping`
+Then navigate to: `http://192.168.99.101/api/v1/ping`
 
 ### Stop and remove container
 `docker stop demo && docker rm demo`

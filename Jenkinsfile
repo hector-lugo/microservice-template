@@ -45,12 +45,7 @@ try {
   stage('Terraform') {
     node {
       dir('iac') {
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: CREDENTIALS_ID,
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
+        withAWS(credentials: 'awsCredentials', region: 'us-east-1') {
           ansiColor('xterm') {
             sh 'terraform init'
             sh 'terraform plan -var ecs_image=' + IMAGE
