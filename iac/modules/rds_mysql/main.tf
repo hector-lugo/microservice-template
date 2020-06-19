@@ -35,10 +35,12 @@ resource "aws_ssm_parameter" "database_address" {
   name = format("/%s/database/host", var.prefix)
   type = "String"
   value = aws_db_instance.database_instance.address
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "database_port" {
   name = format("/%s/database/port", var.prefix)
   type = "String"
   value = aws_db_instance.database_instance.port
+  overwrite = true
 }
